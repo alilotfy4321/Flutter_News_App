@@ -117,9 +117,6 @@ class NewsappcubitCubit extends Cubit<NewsappcubitState> {
 
   launchURL(int index, var link, dynamic context, dynamic state) async {
     emit(NewsAppLuanchingNewPageState());
-    if (state is NewsAppLuanchingNewPageState) {
-      build(context);
-    }
 
     print(link[index]["url"]);
 
