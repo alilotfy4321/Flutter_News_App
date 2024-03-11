@@ -34,3 +34,5 @@ class NewsAppErrorState extends NewsappcubitState {
 
   NewsAppErrorState(this.error);
 }
+
+class LocalizationState extends NewsappcubitState {}

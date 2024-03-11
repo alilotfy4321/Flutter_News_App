@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_is_empty, unused_element, prefer_const_declarations, curly_braces_in_flow_control_structures
+// ignore_for_file: prefer_const_constructors, prefer_is_empty, unused_element, prefer_const_declarations, curly_braces_in_flow_control_structures, unnecessary_null_comparison, unused_local_variable, non_constant_identifier_names
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants.dart';
-import 'package:flutter_application_1/remote/dioHelper.dart';
+import 'package:flutter_application_1/networkServer/local/cachHelper.dart';
+import 'package:flutter_application_1/networkServer/remote/dioHelper.dart';
 import 'package:flutter_application_1/view/formScreens/SignUpScreen.dart';
 import 'package:flutter_application_1/view/formScreens/loginScreen.dart';
 import 'package:flutter_application_1/view/formScreens/welcomeScreen.dart';
@@ -12,13 +13,14 @@ import 'package:flutter_application_1/view/newsappScreen/scienceScreen.dart';
 import 'package:flutter_application_1/view/newsappScreen/sportsScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'newsappcubit_state.dart';
 
-class NewsappcubitCubit extends Cubit<NewsappcubitState> {
-  NewsappcubitCubit() : super(NewsAppCubitInitial());
-  static NewsappcubitCubit get(context) => BlocProvider.of(context);
+class NewsApptCubit extends Cubit<NewsappcubitState> {
+  NewsApptCubit() : super(NewsAppCubitInitial());
+  static NewsApptCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
   bool isLightMode = false;
@@ -36,13 +38,19 @@ class NewsappcubitCubit extends Cubit<NewsappcubitState> {
     emit(NewsAppCubitChangeState(currentIndex));
   }
 
-  changeMode() {
+  var cachedValue;
+  changeMode({var fromCach}) {
+    print('the last value before exit app is $fromCach');
     isLightMode = !isLightMode;
-    if (isLightMode) {
-      modeIcon = Icons.brightness_2_outlined;
-    } else {
-      modeIcon = Icons.brightness_2_rounded;
-    }
+    CachHelper.SaveUserKey('isLight', isLightMode).then((value) {
+      if (isLightMode) {
+        modeIcon = Icons.brightness_2_outlined;
+      } else {
+        modeIcon = Icons.brightness_2_rounded;
+      }
+      CachHelper.getUserValue(key: 'isLight', userName: cachedValue);
+    }).catchError((e) => print(e.toString()));
+
     emit(NewsAppCubitChangeModeState());
   }
 
@@ -130,4 +138,20 @@ class NewsappcubitCubit extends Cubit<NewsappcubitState> {
     }
     emit(NewsAppLuanchingNewPageSuccesState());
   }
+
+  dynamic userName;
+
+  int count = 0;
+
+  // setSharedValue(String key, dynamic val) async {
+  //   await CachHelper.SaveUserKey(key, val);
+  //   print(val);
+  //   emit(LocalizationState());
+  // }
+
+  // getSharedValue(String key) async {
+  //   userName = CachHelper.getUserValue(key, userName);
+  //   print(userName);
+  //   emit(LocalizationState());
+  // }
 }

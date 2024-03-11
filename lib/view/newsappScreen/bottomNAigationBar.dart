@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants.dart';
 import 'package:flutter_application_1/controll/newsappcubit/newsappcubit_cubit.dart';
-import 'package:flutter_application_1/remote/dioHelper.dart';
+import 'package:flutter_application_1/networkServer/remote/dioHelper.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsBotttomNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewsappcubitCubit, NewsappcubitState>(
+    return BlocBuilder<NewsApptCubit, NewsappcubitState>(
       builder: (context, state) {
         ///create object from newsCubit
-        var newsCubitObj = NewsappcubitCubit.get(context);
+        var newsCubitObj = NewsApptCubit.get(context);
         //////////////////////////////////////////////////////////
         return Scaffold(
           appBar: AppBar(
@@ -20,7 +20,9 @@ class NewsBotttomNavigation extends StatelessWidget {
             ),
             actions: [
               IconButton(
-                onPressed: () => newsCubitObj.changeMode(),
+                onPressed: () {
+                  newsCubitObj.changeMode();
+                },
                 icon: Icon(newsCubitObj.modeIcon),
               )
             ],

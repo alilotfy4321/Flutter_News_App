@@ -11,10 +11,10 @@ class ScienceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewsappcubitCubit, NewsappcubitState>(
+    return BlocBuilder<NewsApptCubit, NewsappcubitState>(
       builder: (context, state) {
-        var cubit = NewsappcubitCubit.get(context);
-        var articleList = NewsappcubitCubit.get(context).Bussiness;
+        var cubit = NewsApptCubit.get(context);
+        var articleList = NewsApptCubit.get(context).Bussiness;
         if (state is NewsAppErrorState) {
           return Center(child: Text('${state.toString()}'));
         }

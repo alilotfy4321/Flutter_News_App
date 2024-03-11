@@ -11,11 +11,11 @@ class SportsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewsappcubitCubit, NewsappcubitState>(
+    return BlocBuilder<NewsApptCubit, NewsappcubitState>(
       builder: (context, state) {
         ///////////////////////////////////////////////////feilds--------
-        var cubit = NewsappcubitCubit.get(context);
-        var articleList = NewsappcubitCubit.get(context).sports;
+        var cubit = NewsApptCubit.get(context);
+        var articleList = NewsApptCubit.get(context).sports;
 
         ///--------------------------------------------------------------------
         if (state is NewsAppErrorState) {
