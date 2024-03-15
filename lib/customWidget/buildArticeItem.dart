@@ -1,9 +1,16 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/customWidget/Navigation.dart';
 import 'package:flutter_application_1/customWidget/vhSpace.dart';
+import 'package:flutter_application_1/view/newsappScreen/webViewScreen.dart';
 
-Widget buildArticleItem(context, var list) => Padding(
+Widget buildArticleItem(context, var list) =>
+// InkWell(
+//       // onTap: () {
+//       //   navigateTo(context, WebViewScreen(list['url']));
+//       // },
+    Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
         height: 120.0,

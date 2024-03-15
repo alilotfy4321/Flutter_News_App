@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/constants.dart';
 import 'package:flutter_application_1/controll/newsappcubit/newsappcubit_cubit.dart';
+import 'package:flutter_application_1/customWidget/Navigation.dart';
 import 'package:flutter_application_1/networkServer/remote/dioHelper.dart';
+import 'package:flutter_application_1/view/newsappScreen/searchScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsBotttomNavigation extends StatelessWidget {
@@ -21,10 +23,16 @@ class NewsBotttomNavigation extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: () {
+                  navigateTo(context, SearchScreen());
+                },
+                icon: Icon(Icons.search),
+              ),
+              IconButton(
+                onPressed: () {
                   newsCubitObj.changeMode();
                 },
                 icon: Icon(newsCubitObj.modeIcon),
-              )
+              ),
             ],
           ),
           bottomNavigationBar: BottomNavigationBar(

@@ -9,19 +9,38 @@ Widget CustomTextFormField({
   String hint = 'Enter your phone',
   String label = 'phone',
   required TextEditingController controller,
+  dynamic function,
+  bool isLight = true,
+  var keyboardType,
 }) {
   return Container(
     height: height,
     width: width,
     child: TextFormField(
+      keyboardType: keyboardType,
       controller: controller,
+      onChanged: function,
       decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.white,
+        labelStyle: TextStyle(
+          color: Colors.black,
+          // color: isLight ? Colors.black : Colors.white,
+        ),
+        hintStyle: TextStyle(
+          color: Colors.black,
+          // color: isLight ? Colors.black : Colors.white,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(r),
           ),
         ),
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(
+          icon,
+          color: Colors.black,
+          // color: isLight ? Colors.black : Colors.white,
+        ),
         hintText: hint,
         labelText: label,
       ),

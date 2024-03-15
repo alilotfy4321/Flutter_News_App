@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_is_empty, unused_element, prefer_const_declarations, curly_braces_in_flow_control_structures, unnecessary_null_comparison, unused_local_variable, non_constant_identifier_names
+// ignore_for_file: prefer_const_constructors, prefer_is_empty, unused_element, prefer_const_declarations, curly_braces_in_flow_control_structures, unnecessary_null_comparison, unused_local_variable, non_constant_identifier_names, unnecessary_string_interpolations
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'package:flutter_application_1/view/formScreens/loginScreen.dart';
 import 'package:flutter_application_1/view/formScreens/welcomeScreen.dart';
 import 'package:flutter_application_1/view/newsappScreen/bussinessScreen.dart';
 import 'package:flutter_application_1/view/newsappScreen/scienceScreen.dart';
+import 'package:flutter_application_1/view/newsappScreen/searchScreen.dart';
 import 'package:flutter_application_1/view/newsappScreen/sportsScreen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
@@ -57,6 +58,7 @@ class NewsApptCubit extends Cubit<NewsappcubitState> {
   List<dynamic> Bussiness = [];
   List<dynamic> sports = [];
   List<dynamic> science = [];
+  List<dynamic> search = [];
 
   void getBussiness() {
     emit(NewsAppGetBussinessLoadingState());
@@ -114,6 +116,22 @@ class NewsApptCubit extends Cubit<NewsappcubitState> {
     } else {
       emit(NewsAppGetScienceSuccessState());
     }
+  }
+
+  void getSearch(String searchedValue) {
+    emit(NewsAppGetSearchLoadingState());
+    DioHelper.getData(
+      'v2/everything',
+      {
+        'q': '$searchedValue',
+        'apiKey': '1242652b011b46c381aa46cc72f75f6f',
+      },
+    ).then((value) {
+      search = value.data['articles'];
+    }).catchError((e) {
+      print(e.toString());
+      emit(NewsAppErrorState(e));
+    });
   }
 
   @override
